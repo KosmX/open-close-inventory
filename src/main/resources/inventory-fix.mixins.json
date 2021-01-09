@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "InventoryFix.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [],
+  "client": [
+    "HandledScreenMixin"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,4 +1,4 @@
-package InventoryFix.mixin;
+package io.github.kosmx.inventoryFix.mixin;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class HandledScreenMixin {
     @Shadow public abstract void onClose();
 
-    @Inject(method = "mouseClicked", at = @At(value = "INVOKE"), cancellable = true)
+    @Inject(method = "mouseClicked", at = @At(value = "HEAD"), cancellable = true)
     private void closeInventory(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir){
         if(MinecraftClient.getInstance().options.keyInventory.matchesMouse(button)){
             this.onClose();

@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "InventoryFix.mixin",
+  "package": "io.github.kosmx.inventoryFix.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [],
   "client": [

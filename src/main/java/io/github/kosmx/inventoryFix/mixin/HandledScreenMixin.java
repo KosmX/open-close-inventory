@@ -14,21 +14,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(HandledScreen.class)
 public abstract class HandledScreenMixin {
-    @Shadow
-    public abstract void onClose();
-
 
     @Shadow protected abstract void onMouseClick(Slot slot, int slotId, int button, SlotActionType actionType);
 
     @Shadow @Nullable protected Slot focusedSlot;
 
+    @Shadow public abstract void close();
+
     @Inject(method = "mouseClicked", at = @At(value = "HEAD"), cancellable = true)
     private void closeInventory(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
-        if (MinecraftClient.getInstance().options.keyInventory.matchesMouse(button)) {
-            this.onClose();
+        if (MinecraftClient.getInstance().options.inventoryKey.matchesMouse(button)) {
+            this.close();
             cir.setReturnValue(true);
             cir.cancel();
-        } else if (this.focusedSlot != null && MinecraftClient.getInstance().options.keyDrop.matchesMouse(button)) {
+        } else if (this.focusedSlot != null && MinecraftClient.getInstance().options.dropKey.matchesMouse(button)) {
             this.onMouseClick(this.focusedSlot, this.focusedSlot.id, Screen.hasControlDown() ? 1 : 0, SlotActionType.THROW);
         }
     }
